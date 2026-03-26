@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <title>反省の色診断</title>
+    <script>
+      (function () {
+        const pathSegmentsToKeep = 1;
+        const locationInfo = window.location;
+        const redirectUrl =
+          locationInfo.protocol +
+          '//' +
+          locationInfo.hostname +
+          (locationInfo.port ? ':' + locationInfo.port : '') +
+          locationInfo.pathname.split('/').slice(0, 1 + pathSegmentsToKeep).join('/') +
+          '/?/' +
+          locationInfo.pathname
+            .slice(1)
+            .split('/')
+            .slice(pathSegmentsToKeep)
+            .join('/')
+            .replace(/&/g, '~and~') +
+          (locationInfo.search ? '&' + locationInfo.search.slice(1).replace(/&/g, '~and~') : '') +
+          locationInfo.hash;
+
+        locationInfo.replace(redirectUrl);
+      })();
+    </script>
+  </head>
+  <body></body>
+  </html>
