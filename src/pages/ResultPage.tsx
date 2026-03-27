@@ -11,12 +11,21 @@ import { diagnosisTypeMap } from '../data/types';
 import { clearDiagnosisResult } from '../features/diagnosis/diagnosisStorage';
 import { buildLineShareUrl, buildTypeShareUrl, buildXShareUrl } from '../features/share/shareHelpers';
 import { buildLineShareText, buildXShareText } from '../features/share/shareText';
+import { usePageMeta } from '../hooks/usePageMeta';
 import { useResult } from '../hooks/useResult';
+import { getSiteUrl, siteMeta } from '../lib/siteMeta';
 import { buildTypeCssVars } from '../styles/theme';
 
 export function ResultPage() {
   const navigate = useNavigate();
   const { type } = useResult();
+
+  usePageMeta({
+    title: type ? `診断結果：${type.name}｜反省の色診断` : '診断結果｜反省の色診断',
+    description: type?.content.resultMemo ?? siteMeta.defaultDescription,
+    url: type ? getSiteUrl(`types/${type.slug}`) : getSiteUrl('result'),
+    canonical: type ? getSiteUrl(`types/${type.slug}`) : getSiteUrl(),
+  });
 
   if (!type) {
     return (

@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://ryo909.github.io/hansei-color/sitemap.xml

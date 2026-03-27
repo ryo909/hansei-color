@@ -16,7 +16,9 @@ import { TextSection } from '../components/sections/TextSection';
 import { diagnosisTypeMap } from '../data/types';
 import { buildLineShareUrl, buildTypeShareUrl, buildXShareUrl } from '../features/share/shareHelpers';
 import { buildLineShareText, buildXShareText } from '../features/share/shareText';
+import { usePageMeta } from '../hooks/usePageMeta';
 import { useTypeDetail } from '../hooks/useTypeDetail';
+import { getSiteUrl } from '../lib/siteMeta';
 import { buildTypeCssVars } from '../styles/theme';
 import { NotFoundPage } from './NotFoundPage';
 
@@ -27,6 +29,12 @@ export function TypeDetailPage() {
   if (!type) {
     return <NotFoundPage />;
   }
+
+  usePageMeta({
+    title: `${type.name}｜反省の色診断`,
+    description: type.content.resultMemo,
+    url: getSiteUrl(`types/${type.slug}`),
+  });
 
   const relatedTypeGroups = type.content.relatedTypeGroups?.map((group) => ({
     title: group.title,

@@ -3,6 +3,8 @@ import { SectionBlock } from '../components/layout/SectionBlock';
 import { TypeListSection } from '../components/sections/TypeListSection';
 import { PrimaryButton } from '../components/ui/PrimaryButton';
 import { diagnosisTypes } from '../data/types';
+import { usePageMeta } from '../hooks/usePageMeta';
+import { getSiteUrl } from '../lib/siteMeta';
 
 const typeGroups = [
   {
@@ -28,6 +30,12 @@ const typeGroups = [
 ] as const;
 
 export function TypesPage() {
+  usePageMeta({
+    title: '16タイプ一覧｜反省の色診断',
+    description: '16タイプの反省色を一覧で見られるページです。気になるタイプはそのまま詳細ページで読めます。',
+    url: getSiteUrl('types'),
+  });
+
   return (
     <PageContainer className="page-container--types">
       <SectionBlock

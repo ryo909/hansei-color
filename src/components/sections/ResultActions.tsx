@@ -15,7 +15,7 @@ export function ResultActions({ type, onRetake, xShareUrl, lineShareUrl }: Resul
       <div className="section-card__header">
         <div>
           <h2 className="section-card__title">次にすること</h2>
-          <p className="section-card__description">スクショ映えを崩さず、そのまま詳細とシェアに繋げます。</p>
+          <p className="section-card__description">この結果を、詳しく読むことも、そのまま共有することもできます。</p>
         </div>
       </div>
       <div className="action-grid action-grid--result">

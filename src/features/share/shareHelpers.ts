@@ -1,27 +1,8 @@
 import { DiagnosisType } from '../../data/types';
-
-const FALLBACK_ORIGIN = 'https://ryo909.github.io';
-
-function getOrigin() {
-  if (typeof window !== 'undefined') {
-    return window.location.origin;
-  }
-
-  return FALLBACK_ORIGIN;
-}
-
-function trimLeadingSlash(value: string) {
-  return value.replace(/^\/+/, '');
-}
+import { getSiteUrl } from '../../lib/siteMeta';
 
 export function buildAppUrl(path = '') {
-  const baseUrl = new URL(import.meta.env.BASE_URL, `${getOrigin()}/`);
-
-  if (!path) {
-    return baseUrl.toString();
-  }
-
-  return new URL(trimLeadingSlash(path), baseUrl).toString();
+  return getSiteUrl(path);
 }
 
 export function buildTypeShareUrl(type: DiagnosisType) {
