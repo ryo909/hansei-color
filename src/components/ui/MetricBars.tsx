@@ -1,6 +1,6 @@
 import { DiagnosisType } from '../../data/types';
 import { toPercent } from '../../lib/utils';
-import { typeAccentMap } from '../../styles/theme';
+import { buildTypeCssVars } from '../../styles/theme';
 
 interface MetricBarsProps {
   type: DiagnosisType;
@@ -15,14 +15,12 @@ const metricLabels = [
 ] as const;
 
 export function MetricBars({ type }: MetricBarsProps) {
-  const accent = typeAccentMap[type.id];
-
   return (
-    <div className="metric-bars">
+    <div className="metric-bars" style={buildTypeCssVars(type.palette)}>
       {metricLabels.map((metric) => (
         <div className="metric-row" key={metric.key}>
           <div className="metric-row__header">
-            <span>{metric.label}</span>
+            <span className="metric-row__label">{metric.label}</span>
             <strong>{type.metrics[metric.key]}</strong>
           </div>
           <div className="metric-row__track">
@@ -30,7 +28,7 @@ export function MetricBars({ type }: MetricBarsProps) {
               className="metric-row__fill"
               style={{
                 width: toPercent(type.metrics[metric.key], 100),
-                background: accent,
+                background: type.metrics[metric.key] >= 80 ? type.palette.dark : type.palette.base,
               }}
             />
           </div>

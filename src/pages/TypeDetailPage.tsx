@@ -14,6 +14,7 @@ import { TypeSummarySection } from '../components/sections/TypeSummarySection';
 import { TextSection } from '../components/sections/TextSection';
 import { diagnosisTypeMap } from '../data/types';
 import { useTypeDetail } from '../hooks/useTypeDetail';
+import { buildTypeCssVars } from '../styles/theme';
 import { NotFoundPage } from './NotFoundPage';
 
 export function TypeDetailPage() {
@@ -31,8 +32,10 @@ export function TypeDetailPage() {
   const relatedTypes = type.content.relatedTypes.map((typeId) => diagnosisTypeMap[typeId]);
 
   return (
-    <PageContainer>
-      <TextButton to="/result">結果へ戻る</TextButton>
+    <PageContainer className="page-container--detail" style={buildTypeCssVars(type.palette)}>
+      <TextButton to="/types" className="detail-back-link">
+        一覧へ戻る
+      </TextButton>
       <TypeHero type={type} />
       <OverviewSection text={type.content.overview} />
       <MetricsSection type={type} />
@@ -71,7 +74,7 @@ export function TypeDetailPage() {
       />
       <TypeSummarySection text={type.content.summary} />
       <Divider />
-      <RelatedTypesSection items={relatedTypes} groups={relatedTypeGroups} />
+      <RelatedTypesSection items={relatedTypes} groups={relatedTypeGroups} variant="chips" />
       <div className="action-grid">
         <SecondaryButton to="/diagnosis" fullWidth>
           再診断する

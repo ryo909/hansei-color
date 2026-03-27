@@ -6,7 +6,7 @@ interface TypeSummarySectionProps {
 
 export function TypeSummarySection({ text }: TypeSummarySectionProps) {
   return (
-    <SectionBlock title="タイプ要約">
+    <SectionBlock title="タイプ要約" className="type-summary-section">
       <p>{text}</p>
     </SectionBlock>
   );

@@ -1,3 +1,5 @@
+import { CSSProperties } from 'react';
+import { Link } from 'react-router-dom';
 import { DiagnosisType } from '../../data/types';
 import { SectionBlock } from '../layout/SectionBlock';
 import { RelatedTypePreview } from './RelatedTypePreview';
@@ -8,30 +10,56 @@ interface RelatedTypesSectionProps {
     title: string;
     items: DiagnosisType[];
   }>;
+  variant?: 'cards' | 'chips';
 }
 
-export function RelatedTypesSection({ items, groups }: RelatedTypesSectionProps) {
+function RelatedTypeChip({ item }: { item: DiagnosisType }) {
   return (
-    <SectionBlock title="関連タイプ">
+    <Link
+      to={`/types/${item.slug}`}
+      className="related-chip"
+      style={
+        {
+          '--type-base': item.palette.base,
+          '--type-light': item.palette.light,
+          '--type-dark': item.palette.dark,
+        } as CSSProperties
+      }
+    >
+      {item.name}
+    </Link>
+  );
+}
+
+export function RelatedTypesSection({ items, groups, variant = 'cards' }: RelatedTypesSectionProps) {
+  const renderItems = (sectionItems: DiagnosisType[], prefix: string) =>
+    variant === 'chips' ? (
+      <div className="related-chips">
+        {sectionItems.map((item) => (
+          <RelatedTypeChip key={`${prefix}-${item.id}`} item={item} />
+        ))}
+      </div>
+    ) : (
+      <div className="card-stack">
+        {sectionItems.map((item) => (
+          <RelatedTypePreview key={`${prefix}-${item.id}`} type={item} />
+        ))}
+      </div>
+    );
+
+  return (
+    <SectionBlock title="関連タイプ" className={variant === 'chips' ? 'related-types-section' : undefined}>
       {groups?.length ? (
         <div className="related-group-stack">
           {groups.map((group) => (
             <div className="related-group" key={group.title}>
               <h3 className="mini-heading">{group.title}</h3>
-              <div className="card-stack">
-                {group.items.map((item) => (
-                  <RelatedTypePreview key={`${group.title}-${item.id}`} type={item} />
-                ))}
-              </div>
+              {renderItems(group.items, group.title)}
             </div>
           ))}
         </div>
       ) : (
-        <div className="card-stack">
-          {items?.map((item) => (
-            <RelatedTypePreview key={item.id} type={item} />
-          ))}
-        </div>
+        renderItems(items ?? [], 'related')
       )}
     </SectionBlock>
   );

@@ -24,3 +24,21 @@ export function splitParagraphs(text: string) {
 export function getFirstParagraph(text: string) {
   return splitParagraphs(text)[0] ?? text;
 }
+
+export function splitHighlightText(text: string, highlight: string) {
+  const index = text.lastIndexOf(highlight);
+
+  if (index === -1) {
+    return {
+      before: text,
+      highlight: '',
+      after: '',
+    };
+  }
+
+  return {
+    before: text.slice(0, index),
+    highlight,
+    after: text.slice(index + highlight.length),
+  };
+}

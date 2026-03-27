@@ -8,7 +8,7 @@ interface MetricsSectionProps {
 
 export function MetricsSection({ type }: MetricsSectionProps) {
   return (
-    <SectionBlock title="反省成分表">
+    <SectionBlock title="反省成分表" className="metrics-section">
       <MetricBars type={type} />
     </SectionBlock>
   );

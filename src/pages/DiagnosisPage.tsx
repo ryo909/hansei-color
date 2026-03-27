@@ -24,7 +24,7 @@ export function DiagnosisPage() {
   }
 
   return (
-    <PageContainer>
+    <PageContainer className="page-container--diagnosis">
       <ProgressHeader
         current={currentQuestionIndex + 1}
         total={totalQuestions}

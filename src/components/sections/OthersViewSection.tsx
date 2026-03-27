@@ -13,7 +13,7 @@ const labels: Array<{ key: keyof OthersView; label: string }> = [
 
 export function OthersViewSection({ views }: OthersViewSectionProps) {
   return (
-    <SectionBlock title="周囲の本音">
+    <SectionBlock title="周囲の本音" className="others-view-section">
       <div className="others-grid">
         {labels.map((item) => (
           <article className="mini-card" key={item.key}>

@@ -7,12 +7,14 @@ import { ResultActions } from '../components/sections/ResultActions';
 import { ResultHero } from '../components/sections/ResultHero';
 import { ResultSummary } from '../components/sections/ResultSummary';
 import { PrimaryButton } from '../components/ui/PrimaryButton';
+import { SecondaryButton } from '../components/ui/SecondaryButton';
 import { diagnosisTypeMap } from '../data/types';
 import { clearDiagnosisResult } from '../features/diagnosis/diagnosisStorage';
 import { downloadShareImage } from '../features/share/shareImage';
 import { copyText, tryNativeShare } from '../features/share/shareHelpers';
 import { buildShareText } from '../features/share/shareText';
 import { useResult } from '../hooks/useResult';
+import { buildTypeCssVars } from '../styles/theme';
 
 export function ResultPage() {
   const navigate = useNavigate();
@@ -35,35 +37,40 @@ export function ResultPage() {
   const relatedTypes = type.content.relatedTypes.map((typeId) => diagnosisTypeMap[typeId]);
 
   return (
-    <PageContainer>
+    <PageContainer className="page-container--result" style={buildTypeCssVars(type.palette)}>
       <ResultHero type={type} />
       <ResultSummary type={type} />
-      <SectionBlock title="CTA群" description="まずはコピー、その次に詳細で読み味を深める構成です。">
-        <ResultActions
-          type={type}
-          onCopy={async () => {
-            const shareText = buildShareText(type);
-            const nativeShared = await tryNativeShare(shareText).catch(() => false);
-            if (nativeShared) {
-              setShareState('共有シートを開きました。');
-              return;
-            }
+      <ResultActions
+        type={type}
+        shareState={shareState}
+        onCopy={async () => {
+          const shareText = buildShareText(type);
+          const nativeShared = await tryNativeShare(shareText).catch(() => false);
+          if (nativeShared) {
+            setShareState('共有シートを開きました。');
+            return;
+          }
 
-            const copied = await copyText(shareText);
-            setShareState(copied ? '投稿文をコピーしました。' : 'コピーに失敗しました。');
-          }}
-          onShareImage={() => {
-            downloadShareImage(type);
-            setShareState('シェア画像の土台をSVGで保存しました。');
-          }}
-          onRetake={() => {
-            clearDiagnosisResult();
-            navigate('/diagnosis');
-          }}
-        />
-        {shareState ? <p className="notice-text">{shareState}</p> : null}
-      </SectionBlock>
+          const copied = await copyText(shareText);
+          setShareState(copied ? '投稿文をコピーしました。' : 'コピーに失敗しました。');
+        }}
+        onShareImage={() => {
+          downloadShareImage(type);
+          setShareState('シェア画像の土台をSVGで保存しました。');
+        }}
+        onRetake={() => {
+          clearDiagnosisResult();
+          navigate('/diagnosis');
+        }}
+      />
       <RelatedTypesSection items={relatedTypes} />
+      <SectionBlock className="types-jump-card">
+        <h2 className="section-card__title">他の反省色も見る</h2>
+        <p className="section-card__description">16タイプ全体を眺めると、この結果の癖がどこにあるか比較しやすくなります。</p>
+        <SecondaryButton to="/types" fullWidth>
+          他の反省色も見る
+        </SecondaryButton>
+      </SectionBlock>
     </PageContainer>
   );
 }

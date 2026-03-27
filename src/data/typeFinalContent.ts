@@ -1,3 +1,4 @@
+import { TYPE_RESULT_MEMO_MAP } from './typeResultMemos';
 import { RelatedTypeGroup, TypeContent, TypeId, TypeMetrics } from './types';
 
 type TextBlock = string | string[];
@@ -42,6 +43,7 @@ function flattenRelatedTypes(groups: RelatedTypeGroup[]) {
 function buildTypeContent(draft: FinalContentDraft): TypeContent {
   return {
     catchCopy: draft.catchCopy,
+    resultMemo: '',
     intro: toText(draft.intro),
     overview: toText(draft.overview),
     readingPoints: draft.readingPoints,
@@ -86,7 +88,7 @@ export const FINAL_TYPE_METRICS: Partial<Record<TypeId, TypeMetrics>> = {
   gray_light_muted: { apology: 59, selfProtection: 62, explanation: 32, heat: 23, improvement: 41 },
 };
 
-export const FINAL_TYPE_CONTENTS: Partial<Record<TypeId, TypeContent>> = {
+const FINAL_TYPE_CONTENTS_BASE: Partial<Record<TypeId, TypeContent>> = {
   purple_dense_vivid: buildTypeContent({
     catchCopy:
       '謝る場に来ている。来ているはずなのに、なぜか途中から「こっちだって言いたいことあるんだけど？」の火力が立ち上がる色。',
@@ -1707,3 +1709,13 @@ export const FINAL_TYPE_CONTENTS: Partial<Record<TypeId, TypeContent>> = {
     ],
   }),
 };
+
+export const FINAL_TYPE_CONTENTS: Partial<Record<TypeId, TypeContent>> = Object.fromEntries(
+  Object.entries(FINAL_TYPE_CONTENTS_BASE).map(([typeId, content]) => [
+    typeId,
+    {
+      ...content,
+      resultMemo: TYPE_RESULT_MEMO_MAP[typeId as TypeId],
+    },
+  ]),
+) as Partial<Record<TypeId, TypeContent>>;

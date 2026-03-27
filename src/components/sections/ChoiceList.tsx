@@ -11,10 +11,11 @@ interface ChoiceListProps {
 export function ChoiceList({ question, selectedOptionKey, disabled, onSelect }: ChoiceListProps) {
   return (
     <div className="choice-list">
-      {question.options.map((option) => (
+      {question.options.map((option, index) => (
         <ChoiceCard
           key={option.key}
           isActive={option.key === selectedOptionKey}
+          marker={String.fromCharCode(65 + index)}
           disabled={disabled}
           onClick={() => onSelect(option.key)}
         >

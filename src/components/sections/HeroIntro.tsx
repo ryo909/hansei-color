@@ -1,24 +1,43 @@
 import { PrimaryButton } from '../ui/PrimaryButton';
-import { InfoLabel } from '../ui/InfoLabel';
+import { SecondaryButton } from '../ui/SecondaryButton';
 
 export function HeroIntro() {
   return (
-    <section className="hero-card">
-      <div className="hero-card__content">
-        <InfoLabel>全12問 / 1〜2分 / 16タイプ</InfoLabel>
-        <h1 className="hero-card__title">反省の色診断</h1>
-        <p className="hero-card__lead">
-          反省しているつもりでも、見えている色は別かもしれません。
+    <section className="hero-card hero-card--top">
+      <div className="top-hero__main">
+        <span className="top-hero__badge">無料診断・全12問</span>
+        <h1 className="top-hero__title">
+          あなたの<em>反省の色</em>、
+          <br />
+          見えていますか？
+        </h1>
+        <p className="top-hero__lead">
+          「謝っているのに伝わらない」
+          <br />
+          その理由が、16タイプで判明します。
         </p>
-        <p className="hero-card__sublead">
-          この診断は、反省の出方を勝手に観測するネタ診断です。
-        </p>
-        <div className="hero-card__actions">
-          <PrimaryButton to="/diagnosis" fullWidth>
+      </div>
+      <div className="top-hero__cta">
+        <div className="top-hero__meta" aria-label="診断情報">
+          <span>全12問</span>
+          <span>1〜2分</span>
+          <span>16タイプ</span>
+        </div>
+        <div className="top-hero__actions">
+          <PrimaryButton to="/diagnosis" fullWidth className="top-hero__button">
             診断をはじめる
           </PrimaryButton>
+          <SecondaryButton to="/types" fullWidth className="top-hero__subbutton">
+            16タイプ一覧を見る
+          </SecondaryButton>
         </div>
+        <p className="top-hero__notice">無料・登録不要 / 娯楽目的の診断コンテンツです。</p>
       </div>
+      <p className="top-hero__teaser">
+        「ちゃんと謝っているつもり」の人ほど、
+        <br />
+        結果が面白い傾向があります。
+      </p>
     </section>
   );
 }

@@ -7,11 +7,8 @@ interface QuestionBlockProps {
 
 export function QuestionBlock({ question }: QuestionBlockProps) {
   return (
-    <SectionBlock
-      title="理想の自分ではなく、素の反応に近いものを選んでください。"
-      className="section-card--muted"
-    >
-      <p className="question-block__eyebrow">観測質問</p>
+    <SectionBlock className="question-block">
+      <p className="question-block__eyebrow">理想の自分ではなく、素の反応に近いものを選んでください。</p>
       <h2 className="question-block__title">{question.prompt}</h2>
     </SectionBlock>
   );

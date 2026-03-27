@@ -1,6 +1,6 @@
+import { CSSProperties } from 'react';
+import { Link } from 'react-router-dom';
 import { DiagnosisType } from '../../data/types';
-import { SectionBlock } from '../layout/SectionBlock';
-import { RelatedTypePreview } from './RelatedTypePreview';
 
 interface TypePreviewListProps {
   items: DiagnosisType[];
@@ -8,15 +8,35 @@ interface TypePreviewListProps {
 
 export function TypePreviewList({ items }: TypePreviewListProps) {
   return (
-    <SectionBlock
-      title="結果タイプ見本"
-      description="ネタ診断ですが、名前はしっかり記憶に残る温度で並べています。"
-    >
-      <div className="card-stack">
+    <section className="section-card top-preview-section">
+      <div className="section-card__header top-preview-section__header">
+        <div>
+          <h2 className="section-card__title">結果タイプ見本</h2>
+          <p className="section-card__description">
+            トップはブランド主導、結果以降はタイプ色が主役になる設計です。
+          </p>
+        </div>
+      </div>
+      <div className="top-preview-strip" role="list" aria-label="タイプ見本">
         {items.map((item) => (
-          <RelatedTypePreview key={item.id} type={item} />
+          <Link
+            key={item.id}
+            to={`/types/${item.slug}`}
+            className="top-preview-card"
+            style={
+              {
+                '--type-base': item.palette.base,
+                '--type-light': item.palette.light,
+                '--type-dark': item.palette.dark,
+              } as CSSProperties
+            }
+          >
+            <span className="top-preview-card__swatch" aria-hidden="true" />
+            <span className="top-preview-card__name">{item.name}</span>
+            <span className="top-preview-card__text">{item.content.catchCopy}</span>
+          </Link>
         ))}
       </div>
-    </SectionBlock>
+    </section>
   );
 }

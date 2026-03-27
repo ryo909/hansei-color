@@ -37,7 +37,7 @@ export function AnalyzingPage() {
   }, [navigate]);
 
   return (
-    <PageContainer className="page-container--center">
+    <PageContainer className="page-container--center page-container--analyzing">
       <AnalyzingHero message={message} />
     </PageContainer>
   );

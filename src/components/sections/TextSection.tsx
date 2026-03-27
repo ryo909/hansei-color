@@ -8,7 +8,7 @@ interface TextSectionProps {
 
 export function TextSection({ title, text }: TextSectionProps) {
   return (
-    <SectionBlock title={title}>
+    <SectionBlock title={title} className="text-section">
       <ParagraphStack text={text} />
     </SectionBlock>
   );

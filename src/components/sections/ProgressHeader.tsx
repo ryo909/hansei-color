@@ -13,14 +13,28 @@ export function ProgressHeader({ current, total, progress, onBack, canGoBack }: 
   return (
     <div className="progress-header">
       <div className="progress-header__top">
-        <TextButton onClick={onBack} disabled={!canGoBack}>
-          戻る
+        <div className="progress-header__brand">
+          <span className="progress-header__title">反省の色診断</span>
+          <span className="progress-header__count">
+            {current} / {total}
+          </span>
+        </div>
+        <TextButton onClick={onBack} disabled={!canGoBack} className="progress-header__back">
+          ← 前へ
         </TextButton>
-        <span className="progress-header__count">
+      </div>
+      <div className="progress-header__bar">
+        <ProgressBar value={progress} />
+      </div>
+      <div className="progress-header__footer">
+        <span className="progress-header__question">
+          Q{current}
+        </span>
+        <span className="progress-header__caption">
           {current} / {total}
+          問目を観測中
         </span>
       </div>
-      <ProgressBar value={progress} />
     </div>
   );
 }

@@ -7,7 +7,7 @@ const previewTypeIds = ['blue_dense_vivid', 'purple_dense_vivid', 'gray_light_mu
 
 export function TopPage() {
   return (
-    <PageContainer>
+    <PageContainer className="page-container--top">
       <HeroIntro />
       <TypePreviewList items={previewTypeIds.map((typeId) => diagnosisTypeMap[typeId])} />
     </PageContainer>

@@ -7,7 +7,7 @@ interface OverviewSectionProps {
 
 export function OverviewSection({ text }: OverviewSectionProps) {
   return (
-    <SectionBlock title="タイプ概要">
+    <SectionBlock title="タイプ概要" className="overview-section">
       <ParagraphStack text={text} />
     </SectionBlock>
   );

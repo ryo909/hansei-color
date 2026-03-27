@@ -1,5 +1,6 @@
 import { TYPE_META_MAP } from './typeNameMap';
 import { TYPE_METRICS_MAP, TYPE_PLACEHOLDERS } from './typePlaceholders';
+import { TypePalette, typePaletteMap } from '../styles/theme';
 
 export type BaseGroup = 'purple' | 'blue' | 'gold' | 'gray';
 export type Density = 'dense' | 'light';
@@ -43,6 +44,7 @@ export interface RelatedTypeGroup {
 
 export interface TypeContent {
   catchCopy: string;
+  resultMemo: string;
   intro: string;
   overview: string;
   readingPoints: string[];
@@ -67,9 +69,11 @@ export interface DiagnosisType {
   id: TypeId;
   slug: string;
   name: string;
+  highlight: string;
   group: BaseGroup;
   density: Density;
   vividness: Vividness;
+  palette: TypePalette;
   metrics: TypeMetrics;
   content: TypeContent;
 }
@@ -90,6 +94,7 @@ export const diagnosisTypes: DiagnosisType[] = (Object.keys(TYPE_META_MAP) as Ty
     id: typeId,
     ...TYPE_META_MAP[typeId],
     ...parseTypeId(typeId),
+    palette: typePaletteMap[typeId],
     metrics: TYPE_METRICS_MAP[typeId],
     content: TYPE_PLACEHOLDERS[typeId],
   }),
