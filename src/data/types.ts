@@ -45,6 +45,7 @@ export interface RelatedTypeGroup {
 export interface TypeContent {
   catchCopy: string;
   resultMemo: string;
+  shareLine: string;
   intro: string;
   overview: string;
   readingPoints: string[];

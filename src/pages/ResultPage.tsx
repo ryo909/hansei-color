@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { PageContainer } from '../components/layout/PageContainer';
 import { SectionBlock } from '../components/layout/SectionBlock';
@@ -10,16 +9,14 @@ import { PrimaryButton } from '../components/ui/PrimaryButton';
 import { SecondaryButton } from '../components/ui/SecondaryButton';
 import { diagnosisTypeMap } from '../data/types';
 import { clearDiagnosisResult } from '../features/diagnosis/diagnosisStorage';
-import { downloadShareImage } from '../features/share/shareImage';
-import { copyText, tryNativeShare } from '../features/share/shareHelpers';
-import { buildShareText } from '../features/share/shareText';
+import { buildLineShareUrl, buildTypeShareUrl, buildXShareUrl } from '../features/share/shareHelpers';
+import { buildLineShareText, buildXShareText } from '../features/share/shareText';
 import { useResult } from '../hooks/useResult';
 import { buildTypeCssVars } from '../styles/theme';
 
 export function ResultPage() {
   const navigate = useNavigate();
   const { type } = useResult();
-  const [shareState, setShareState] = useState<string | null>(null);
 
   if (!type) {
     return (
@@ -35,6 +32,9 @@ export function ResultPage() {
   }
 
   const relatedTypes = type.content.relatedTypes.map((typeId) => diagnosisTypeMap[typeId]);
+  const shareTargetUrl = buildTypeShareUrl(type);
+  const xShareUrl = buildXShareUrl(buildXShareText(type), shareTargetUrl);
+  const lineShareUrl = buildLineShareUrl(buildLineShareText(type), shareTargetUrl);
 
   return (
     <PageContainer className="page-container--result" style={buildTypeCssVars(type.palette)}>
@@ -42,22 +42,8 @@ export function ResultPage() {
       <ResultSummary type={type} />
       <ResultActions
         type={type}
-        shareState={shareState}
-        onCopy={async () => {
-          const shareText = buildShareText(type);
-          const nativeShared = await tryNativeShare(shareText).catch(() => false);
-          if (nativeShared) {
-            setShareState('共有シートを開きました。');
-            return;
-          }
-
-          const copied = await copyText(shareText);
-          setShareState(copied ? '投稿文をコピーしました。' : 'コピーに失敗しました。');
-        }}
-        onShareImage={() => {
-          downloadShareImage(type);
-          setShareState('シェア画像の土台をSVGで保存しました。');
-        }}
+        xShareUrl={xShareUrl}
+        lineShareUrl={lineShareUrl}
         onRetake={() => {
           clearDiagnosisResult();
           navigate('/diagnosis');

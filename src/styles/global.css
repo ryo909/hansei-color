@@ -350,6 +350,11 @@ body {
   margin-bottom: 4px;
 }
 
+.top-preview-section__link {
+  flex-shrink: 0;
+  white-space: nowrap;
+}
+
 .top-preview-strip {
   display: flex;
   gap: 10px;
@@ -1036,6 +1041,10 @@ body {
 }
 
 .types-jump-card {
+  gap: 12px;
+}
+
+.detail-share-card {
   gap: 12px;
 }
 

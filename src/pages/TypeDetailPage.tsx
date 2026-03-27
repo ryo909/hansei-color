@@ -1,5 +1,6 @@
 import { useParams } from 'react-router-dom';
 import { PageContainer } from '../components/layout/PageContainer';
+import { SectionBlock } from '../components/layout/SectionBlock';
 import { Divider } from '../components/ui/Divider';
 import { SecondaryButton } from '../components/ui/SecondaryButton';
 import { TextButton } from '../components/ui/TextButton';
@@ -13,6 +14,8 @@ import { TypeHero } from '../components/sections/TypeHero';
 import { TypeSummarySection } from '../components/sections/TypeSummarySection';
 import { TextSection } from '../components/sections/TextSection';
 import { diagnosisTypeMap } from '../data/types';
+import { buildLineShareUrl, buildTypeShareUrl, buildXShareUrl } from '../features/share/shareHelpers';
+import { buildLineShareText, buildXShareText } from '../features/share/shareText';
 import { useTypeDetail } from '../hooks/useTypeDetail';
 import { buildTypeCssVars } from '../styles/theme';
 import { NotFoundPage } from './NotFoundPage';
@@ -30,6 +33,9 @@ export function TypeDetailPage() {
     items: group.items.map((typeId) => diagnosisTypeMap[typeId]),
   }));
   const relatedTypes = type.content.relatedTypes.map((typeId) => diagnosisTypeMap[typeId]);
+  const shareTargetUrl = buildTypeShareUrl(type);
+  const xShareUrl = buildXShareUrl(buildXShareText(type), shareTargetUrl);
+  const lineShareUrl = buildLineShareUrl(buildLineShareText(type), shareTargetUrl);
 
   return (
     <PageContainer className="page-container--detail" style={buildTypeCssVars(type.palette)}>
@@ -75,6 +81,21 @@ export function TypeDetailPage() {
       <TypeSummarySection text={type.content.summary} />
       <Divider />
       <RelatedTypesSection items={relatedTypes} groups={relatedTypeGroups} variant="chips" />
+      <SectionBlock className="detail-share-card">
+        <h2 className="section-card__title">このタイプを共有する</h2>
+        <p className="section-card__description">詳細まで読んだあと、そのまま X と LINE に流せます。</p>
+        <div className="action-grid action-grid--detail-share">
+          <SecondaryButton href={xShareUrl} target="_blank" rel="noreferrer" fullWidth>
+            Xで共有
+          </SecondaryButton>
+          <SecondaryButton href={lineShareUrl} target="_blank" rel="noreferrer" fullWidth>
+            LINEで共有
+          </SecondaryButton>
+          <SecondaryButton to="/types" fullWidth>
+            16タイプ一覧を見る
+          </SecondaryButton>
+        </div>
+      </SectionBlock>
       <div className="action-grid">
         <SecondaryButton to="/diagnosis" fullWidth>
           再診断する

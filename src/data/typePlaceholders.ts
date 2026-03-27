@@ -1,6 +1,6 @@
 import { TYPE_META_MAP } from './typeNameMap';
 import { FINAL_TYPE_CONTENTS, FINAL_TYPE_METRICS } from './typeFinalContent';
-import { TYPE_RESULT_MEMO_MAP } from './typeResultMemos';
+import { TYPE_COPY_PATCH } from './typeResultMemos';
 import { BaseGroup, Density, TypeContent, TypeId, TypeMetrics, Vividness } from './types';
 
 interface TypeSeed {
@@ -141,7 +141,8 @@ function buildContent(typeId: TypeId): TypeContent {
 
   return {
     catchCopy: catchCopyMap[typeId],
-    resultMemo: TYPE_RESULT_MEMO_MAP[typeId],
+    resultMemo: TYPE_COPY_PATCH[typeId].resultMemo,
+    shareLine: TYPE_COPY_PATCH[typeId].shareLine,
     intro:
       `${meta.name}は、${base.groupVoice}タイプです。` +
       `${densityTone.nuance}質感と、${vividTone.nuance}輪郭が組み合わさることで、` +

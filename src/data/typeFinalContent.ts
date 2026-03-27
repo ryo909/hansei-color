@@ -1,4 +1,4 @@
-import { TYPE_RESULT_MEMO_MAP } from './typeResultMemos';
+import { TYPE_COPY_PATCH } from './typeResultMemos';
 import { RelatedTypeGroup, TypeContent, TypeId, TypeMetrics } from './types';
 
 type TextBlock = string | string[];
@@ -44,6 +44,7 @@ function buildTypeContent(draft: FinalContentDraft): TypeContent {
   return {
     catchCopy: draft.catchCopy,
     resultMemo: '',
+    shareLine: '',
     intro: toText(draft.intro),
     overview: toText(draft.overview),
     readingPoints: draft.readingPoints,
@@ -1715,7 +1716,8 @@ export const FINAL_TYPE_CONTENTS: Partial<Record<TypeId, TypeContent>> = Object.
     typeId,
     {
       ...content,
-      resultMemo: TYPE_RESULT_MEMO_MAP[typeId as TypeId],
+      resultMemo: TYPE_COPY_PATCH[typeId as TypeId].resultMemo,
+      shareLine: TYPE_COPY_PATCH[typeId as TypeId].shareLine,
     },
   ]),
 ) as Partial<Record<TypeId, TypeContent>>;

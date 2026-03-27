@@ -4,13 +4,12 @@ import { SecondaryButton } from '../ui/SecondaryButton';
 
 interface ResultActionsProps {
   type: DiagnosisType;
-  onCopy: () => void;
-  onShareImage: () => void;
   onRetake: () => void;
-  shareState?: string | null;
+  xShareUrl: string;
+  lineShareUrl: string;
 }
 
-export function ResultActions({ type, onCopy, onShareImage, onRetake, shareState }: ResultActionsProps) {
+export function ResultActions({ type, onRetake, xShareUrl, lineShareUrl }: ResultActionsProps) {
   return (
     <section className="section-card result-actions-card">
       <div className="section-card__header">
@@ -23,17 +22,16 @@ export function ResultActions({ type, onCopy, onShareImage, onRetake, shareState
         <PrimaryButton to={`/types/${type.slug}`} fullWidth>
           タイプ詳細を読む
         </PrimaryButton>
-        <SecondaryButton onClick={onCopy} fullWidth>
-          投稿文をコピー
+        <SecondaryButton href={xShareUrl} target="_blank" rel="noreferrer" fullWidth>
+          Xで共有
         </SecondaryButton>
-        <SecondaryButton onClick={onShareImage} fullWidth>
-          画像を保存
+        <SecondaryButton href={lineShareUrl} target="_blank" rel="noreferrer" fullWidth>
+          LINEで共有
         </SecondaryButton>
         <SecondaryButton onClick={onRetake} fullWidth className="button--quiet">
           もう一度診断する
         </SecondaryButton>
       </div>
-      {shareState ? <p className="notice-text">{shareState}</p> : null}
     </section>
   );
 }

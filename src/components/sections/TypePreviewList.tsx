@@ -1,6 +1,7 @@
 import { CSSProperties } from 'react';
 import { Link } from 'react-router-dom';
 import { DiagnosisType } from '../../data/types';
+import { TextButton } from '../ui/TextButton';
 
 interface TypePreviewListProps {
   items: DiagnosisType[];
@@ -16,6 +17,9 @@ export function TypePreviewList({ items }: TypePreviewListProps) {
             トップはブランド主導、結果以降はタイプ色が主役になる設計です。
           </p>
         </div>
+        <TextButton to="/types" className="top-preview-section__link">
+          16タイプ一覧を見る
+        </TextButton>
       </div>
       <div className="top-preview-strip" role="list" aria-label="タイプ見本">
         {items.map((item) => (

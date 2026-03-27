@@ -7,6 +7,7 @@ type ButtonLikeProps = {
   className?: string;
   fullWidth?: boolean;
   to?: string;
+  href?: string;
 } & ButtonHTMLAttributes<HTMLButtonElement> &
   AnchorHTMLAttributes<HTMLAnchorElement>;
 
@@ -15,10 +16,19 @@ export function SecondaryButton({
   className,
   fullWidth,
   to,
+  href,
   type = 'button',
   ...props
 }: ButtonLikeProps) {
   const classes = buildClassName('button', 'button--secondary', fullWidth && 'button--full', className);
+
+  if (href) {
+    return (
+      <a href={href} className={classes} {...props}>
+        {children}
+      </a>
+    );
+  }
 
   if (to) {
     return (
