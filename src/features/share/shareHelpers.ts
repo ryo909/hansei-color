@@ -10,12 +10,12 @@ export function buildTypeShareUrl(type: DiagnosisType) {
 }
 
 export function buildXShareUrl(text: string, url: string) {
-  const params = new URLSearchParams({
-    text,
-    url,
-  });
+  const params = new URLSearchParams();
 
-  return `https://x.com/intent/post?${params.toString()}`;
+  params.set('text', text);
+  params.set('url', url);
+
+  return `https://twitter.com/intent/tweet?${params.toString()}`;
 }
 
 export function buildLineShareUrl(text: string, url: string) {

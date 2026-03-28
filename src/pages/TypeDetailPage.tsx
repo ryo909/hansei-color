@@ -93,10 +93,10 @@ export function TypeDetailPage() {
         <h2 className="section-card__title">このタイプを共有する</h2>
         <p className="section-card__description">詳細まで読んだあと、そのまま X と LINE に流せます。</p>
         <div className="action-grid action-grid--detail-share">
-          <SecondaryButton href={xShareUrl} target="_blank" rel="noreferrer" fullWidth>
+          <SecondaryButton href={xShareUrl} target="_blank" rel="noopener noreferrer" fullWidth>
             Xで共有
           </SecondaryButton>
-          <SecondaryButton href={lineShareUrl} target="_blank" rel="noreferrer" fullWidth>
+          <SecondaryButton href={lineShareUrl} target="_blank" rel="noopener noreferrer" fullWidth>
             LINEで共有
           </SecondaryButton>
           <SecondaryButton to="/types" fullWidth>

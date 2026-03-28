@@ -22,10 +22,10 @@ export function ResultActions({ type, onRetake, xShareUrl, lineShareUrl }: Resul
         <PrimaryButton to={`/types/${type.slug}`} fullWidth>
           タイプ詳細を読む
         </PrimaryButton>
-        <SecondaryButton href={xShareUrl} target="_blank" rel="noreferrer" fullWidth>
+        <SecondaryButton href={xShareUrl} target="_blank" rel="noopener noreferrer" fullWidth>
           Xで共有
         </SecondaryButton>
-        <SecondaryButton href={lineShareUrl} target="_blank" rel="noreferrer" fullWidth>
+        <SecondaryButton href={lineShareUrl} target="_blank" rel="noopener noreferrer" fullWidth>
           LINEで共有
         </SecondaryButton>
         <SecondaryButton onClick={onRetake} fullWidth className="button--quiet">
