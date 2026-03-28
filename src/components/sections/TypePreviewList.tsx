@@ -14,7 +14,9 @@ export function TypePreviewList({ items }: TypePreviewListProps) {
         <div>
           <h2 className="section-card__title">結果タイプ見本</h2>
           <p className="section-card__description">
-            トップはブランド主導、結果以降はタイプ色が主役になる設計です。
+            こんな結果が出ます。
+            <br />
+            名前はネタっぽくても、読むと意外と嫌なほど解像度が高いです。
           </p>
         </div>
         <TextButton to="/types" className="top-preview-section__link">

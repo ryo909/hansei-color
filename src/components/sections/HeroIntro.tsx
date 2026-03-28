@@ -7,9 +7,10 @@ export function HeroIntro() {
       <div className="top-hero__main">
         <span className="top-hero__badge">無料診断・全12問</span>
         <h1 className="top-hero__title">
-          あなたの<em>反省の色</em>、
-          <br />
-          見えていますか？
+          <span className="top-hero__title-line">
+            あなたの<em>反省の色</em>、
+          </span>
+          <span className="top-hero__title-line">見えていますか？</span>
         </h1>
         <p className="top-hero__lead">
           「謝っているのに伝わらない」
